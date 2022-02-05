@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -48,7 +50,7 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const <Widget>[TransferCard(Transfer('23.69', '674875'))],
+      children: const <Widget>[TransferCard(Transfer(23.69, 674875))],
     );
   }
 }
@@ -75,8 +77,9 @@ class TransferCard extends StatelessWidget {
 }
 
 class Transfer {
-  final String value;
-  final String account;
+  final double value;
+  final int account;
 
   const Transfer(this.value, this.account);
 }
+changing primitive typechanging primitive type
