@@ -37,47 +37,64 @@ class CreateTransferPage extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _accountInputController,
-              style: TextStyle(
-                fontSize: 24.0,
-              ),
-              decoration: InputDecoration(
-                labelText: "Account Number",
-                hintText: '00000',
-              ),
-              keyboardType: TextInputType.number,
-            ),
+          Input(
+            inputController: _accountInputController,
+            label: 'Account Number',
+            hint: '00000',
           ),
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _valueInputController,
-              style: TextStyle(
-                fontSize: 24.0,
-              ),
-              decoration: InputDecoration(
-                icon: Icon(Icons.monetization_on),
-                labelText: "Value",
-                hintText: '0.00',
-              ),
-              keyboardType: TextInputType.number,
-            ),
+          Input(
+            inputController: _valueInputController,
+            label: 'Value',
+            hint: '0.00',
+            icon: Icons.monetization_on,
           ),
           ElevatedButton(
             child: Text("Confirmar"),
-            onPressed: () {
-              final int? acountNumber =
-                  int.tryParse(_accountInputController.text);
-              final double? value = double.tryParse(_valueInputController.text);
-              if (acountNumber != null && value != null) {
-                final transfer = Transfer(value, acountNumber);
-              }
-            },
+            onPressed: () => _createTranfer(),
           ),
         ],
+      ),
+    );
+  }
+
+  void _createTranfer() {
+    final int? acountNumber = int.tryParse(_accountInputController.text);
+    final double? value = double.tryParse(_valueInputController.text);
+    if (acountNumber != null && value != null) {
+      final transfer = Transfer(value, acountNumber);
+    }
+  }
+}
+
+class Input extends StatelessWidget {
+  final TextEditingController? inputController;
+  final String? label;
+  final String? hint;
+  final IconData? icon;
+
+  Input({
+    Key? key,
+    this.inputController,
+    this.label,
+    this.hint,
+    this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(16.0),
+      child: TextField(
+        controller: inputController,
+        style: TextStyle(
+          fontSize: 24.0,
+        ),
+        decoration: InputDecoration(
+          icon: icon != null ? Icon(icon) : null,
+          labelText: label,
+          hintText: hint,
+        ),
+        keyboardType: TextInputType.number,
       ),
     );
   }
