@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: const MyStatelessWidget(),
+      body: const Body(),
       floatingActionButton: const FloatingActionButton(
         onPressed: null,
         tooltip: 'Increment',
@@ -43,25 +43,40 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class MyStatelessWidget extends StatelessWidget {
-  const MyStatelessWidget({Key? key}) : super(key: key);
+class Body extends StatelessWidget {
+  const Body({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
-        Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const <Widget>[
-              ListTile(
-                leading: Icon(Icons.monetization_on),
-                title: Text('215.50'),
-                subtitle: Text('Teste'),
-              ),
-            ],
-          ),
-        ),
-      ],
+      children: const <Widget>[TransferCard(Transfer('23.69', '674875'))],
     );
   }
+}
+
+class TransferCard extends StatelessWidget {
+  final Transfer _transfer;
+
+  const TransferCard(this._transfer, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+              leading: const Icon(Icons.monetization_on),
+              title: Text(_transfer.value.toString()),
+              subtitle: Text(_transfer.account.toString())),
+        ],
+      ),
+    );
+  }
+}
+
+class Transfer {
+  final String value;
+  final String account;
+
+  const Transfer(this.value, this.account);
 }
