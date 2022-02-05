@@ -82,4 +82,3 @@ class Transfer {
 
   const Transfer(this.value, this.account);
 }
-changing primitive typechanging primitive type
