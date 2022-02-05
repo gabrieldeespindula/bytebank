@@ -30,7 +30,38 @@ class CreateTransferPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Create Transfer'),
       ),
-      body: null,
+      body: Column(
+        children: const <Widget>[
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: TextField(
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
+              decoration: InputDecoration(
+                labelText: "Account Number",
+                hintText: '00000',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: TextField(
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
+              decoration: InputDecoration(
+                icon: Icon(Icons.monetization_on),
+                labelText: "Value",
+                hintText: '0.00',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+          ),
+          ElevatedButton(onPressed: null, child: Text("Confirmar"))
+        ],
+      ),
     );
   }
 }
