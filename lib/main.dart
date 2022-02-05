@@ -1,11 +1,13 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, unused_local_variable
+
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CreateTransferPage(),
+      home: CreateTransferPage(),
     );
   }
 }
@@ -22,19 +24,23 @@ class MyApp extends StatelessWidget {
 // Form
 
 class CreateTransferPage extends StatelessWidget {
-  const CreateTransferPage({Key? key}) : super(key: key);
+  CreateTransferPage({Key? key}) : super(key: key);
+
+  final TextEditingController _valueInputController = TextEditingController();
+  final TextEditingController _accountInputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Transfer'),
+        title: Text('Create Transfer'),
       ),
       body: Column(
-        children: const <Widget>[
+        children: <Widget>[
           Padding(
             padding: EdgeInsets.all(16.0),
             child: TextField(
+              controller: _accountInputController,
               style: TextStyle(
                 fontSize: 24.0,
               ),
@@ -48,6 +54,7 @@ class CreateTransferPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(16.0),
             child: TextField(
+              controller: _valueInputController,
               style: TextStyle(
                 fontSize: 24.0,
               ),
@@ -59,7 +66,17 @@ class CreateTransferPage extends StatelessWidget {
               keyboardType: TextInputType.number,
             ),
           ),
-          ElevatedButton(onPressed: null, child: Text("Confirmar"))
+          ElevatedButton(
+            child: Text("Confirmar"),
+            onPressed: () {
+              final int? acountNumber =
+                  int.tryParse(_accountInputController.text);
+              final double? value = double.tryParse(_valueInputController.text);
+              if (acountNumber != null && value != null) {
+                final transfer = Transfer(value, acountNumber);
+              }
+            },
+          ),
         ],
       ),
     );
@@ -68,17 +85,17 @@ class CreateTransferPage extends StatelessWidget {
 
 // Transfer
 class TransferPage extends StatelessWidget {
-  const TransferPage({Key? key}) : super(key: key);
+  TransferPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Transfer'),
+        title: Text('Transfer'),
       ),
       body: Column(
-        children: const <Widget>[TransferCard(Transfer(23.69, 674875))],
+        children: <Widget>[TransferCard(Transfer(23.69, 674875))],
       ),
-      floatingActionButton: const FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         onPressed: null,
         tooltip: 'Increment',
         child: Icon(Icons.add),
@@ -90,7 +107,7 @@ class TransferPage extends StatelessWidget {
 class TransferCard extends StatelessWidget {
   final Transfer _transfer;
 
-  const TransferCard(this._transfer, {Key? key}) : super(key: key);
+  TransferCard(this._transfer, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +116,7 @@ class TransferCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
-              leading: const Icon(Icons.monetization_on),
+              leading: Icon(Icons.monetization_on),
               title: Text(_transfer.value.toString()),
               subtitle: Text(_transfer.account.toString())),
         ],
@@ -112,5 +129,5 @@ class Transfer {
   final double value;
   final int account;
 
-  const Transfer(this.value, this.account);
+  Transfer(this.value, this.account);
 }
