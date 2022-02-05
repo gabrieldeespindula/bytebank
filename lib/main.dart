@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,45 +10,48 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'ByteBank',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Transfers'),
+      home: const CreateTransferPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+// Form
 
-class _MyHomePageState extends State<MyHomePage> {
+class CreateTransferPage extends StatelessWidget {
+  const CreateTransferPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Create Transfer'),
       ),
-      body: const Body(),
+      body: null,
+    );
+  }
+}
+
+// Transfer
+class TransferPage extends StatelessWidget {
+  const TransferPage({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Transfer'),
+      ),
+      body: Column(
+        children: const <Widget>[TransferCard(Transfer(23.69, 674875))],
+      ),
       floatingActionButton: const FloatingActionButton(
         onPressed: null,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
-    );
-  }
-}
-
-class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: const <Widget>[TransferCard(Transfer(23.69, 674875))],
     );
   }
 }
